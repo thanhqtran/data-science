@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import requests
 
-api_key = 'd2889b206e18'
+api_key = 'xxxx'
 blog_uri = 'nipponkiyoshi.com'
 table = ['views', 'postviews', 'referrers',
          'referrers_grouped', 'searchterms', 'clicks', 'videoplays']
@@ -15,16 +15,16 @@ x = 1
 url = master_url + 'api_key=' + api_key + '&blog_uri=' + \
     blog_uri + '&table=' + table[x] + '&days=' + str(days)
 print(url)
-#url example: 'https://stats.wordpress.com/csv.php?api_key=d2889b206e18&blog_uri=nipponkiyoshi.com&table=postviews'
+#url example: 'https://stats.wordpress.com/csv.php?api_key=xxxx&blog_uri=nipponkiyoshi.com&table=postviews'
 
 #load data
 data = pd.read_csv(url)
 df = pd.DataFrame(data)
 df['date'] = pd.to_datetime(df['date'])
-df.to_csv('/Users/thanhqtran/data.csv')
+df.to_csv('path/data.csv')
 print(df.stack())
 
-'''
+
 #sort by viewcounts
 by_viewcounts = df.groupby(['post_title', 'post_id','post_permalink']).agg(
     {'views': 'sum'})
@@ -58,11 +58,10 @@ colors = ['darkorange' for i in x]
 plt.xlabel('Time')
 plt.ylabel('views')
 plt.plot(values, color='tan', marker='s')
-#plt.bar(x, values, width = widths, color = colors)
+plt.bar(x, values, width = widths, color = colors)
 #plt.show()
 
 #extract country view
 url_country = 'https://wordpress.com/stats/day/countryviews/nipponkiyoshi.com?startDate=2014-08-28'
 start_date = '2014-08-28'
 json_api = 'https://developer.wordpress.com/docs/api/console/'
-'''
